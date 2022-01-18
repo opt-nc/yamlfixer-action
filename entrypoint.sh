@@ -1,6 +1,6 @@
 #!/bin/sh -l
 
-./yamlfixer --verbose ./app/$YAML_FILE
+/yamlfixer --verbose /github/workspace/app/$YAML_FILE
 
 result=$?
 if [ $result -ne 0 ] ; then
