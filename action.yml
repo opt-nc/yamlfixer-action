@@ -1,0 +1,27 @@
+# action.yml
+name: 'Yaml Fixer'
+description: 'Lint and fix Yaml files'
+branding :
+  icon : 'zap'
+  color : 'red'
+
+inputs:
+  yaml_file:
+    description: "Fichier yaml templaté contenant les extra_vars"
+    required: true
+  debug:
+    description: "Activation du mode debug"
+    required: true
+    default: false
+  verbose:
+    description: "Activation du mode verbose"
+    required: true
+    default: false
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    YAML_FILE: ${{ inputs.yaml_file }}
+    DEBUG: ${{ inputs.debug }}
+    VERBOSE: ${{ inputs.VERBOSE }}
