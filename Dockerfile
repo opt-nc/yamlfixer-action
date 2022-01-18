@@ -10,8 +10,8 @@ RUN chmod +x entrypoint.sh
 RUN chmod +x yamlfixer
 
 RUN pip install -r requirements.txt
-RUN apt-get -y update
-RUN apt-get -y install git
+RUN apk update
+RUN apk add git
 
 # Répertoire contenant le source de l'application
 VOLUME ./../app /app
