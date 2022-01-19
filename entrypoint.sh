@@ -12,12 +12,12 @@ if [ $result -ne 0 ] ; then
   echo $repository_name
 #  git config --global user.email "opt@opt.nc"
   git config --global user.name $USER
-  git checkout -b yamlfixer_patch
+  git checkout -b yamlfixer/$YAML_FILE
   git add --all
   git commit -m 'Yamlfixer : fix yaml files '$YAML_FILE
-  git push origin yamlfixer_patch
+  git push origin yamlfixer/$YAML_FILE
   echo "INFO : create a pull request." ;
-  curl  -v -u $USER:$TOKEN -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"yamlfixer_patch","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
+  curl  -v -u $USER:$TOKEN -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"'yamlfixer/$YAML_FILE'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
 else
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
 fi ;
