@@ -8,6 +8,8 @@ if [ $result -ne 0 ] ; then
   branch_name=$(git branch --show-current)
   repository_name=$(basename `git rev-parse --show-toplevel`)
   pwd
+  ls
+  pwd
   cd /github/workspace/app/
   ls
   echo "INFO : create a new branch with corrections." ;
