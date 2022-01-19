@@ -13,7 +13,7 @@ RUN pip install -r requirements.txt
 RUN apk update
 RUN apk add git
 RUN apk add curl
-RUN apk sed
+RUN apk add sed
 
 # Répertoire contenant le source de l'application
 VOLUME ./../app /app
