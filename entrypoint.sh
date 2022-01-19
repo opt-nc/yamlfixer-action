@@ -15,6 +15,7 @@ if [ $result -ne 0 ] ; then
   git checkout -b yamlfixer_patch
   git add --all
   git commit -m 'yamlfixer patch proposition'
+  git push origin yamlfixer_patch
   echo "INFO : create a pull request." ;
   curl  -v -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"yamlfixer_patch","base":"'$branch_name'"}'
 else
