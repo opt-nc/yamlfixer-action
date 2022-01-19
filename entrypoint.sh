@@ -17,7 +17,7 @@ if [ $result -ne 0 ] ; then
   git commit -m 'yamlfixer patch proposition'
   git push origin yamlfixer_patch
   echo "INFO : create a pull request." ;
-  curl  -v -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"yamlfixer_patch","base":"'$branch_name'"}' --trace-ascii -
+  curl  -v -u $USER:$TOKEN -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"yamlfixer_patch","base":"'$branch_name'"}' --trace-ascii -
 else
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
 fi ;

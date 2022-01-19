@@ -17,6 +17,9 @@ inputs:
     description: "Activation du mode verbose"
     required: true
     default: false
+  user:
+    description: "user pour creation pr"
+    required: false
   token:
     description: token pour création de la pull request
     required: false
@@ -28,4 +31,5 @@ runs:
     YAML_FILE: ${{ inputs.yaml_file }}
     DEBUG: ${{ inputs.debug }}
     VERBOSE: ${{ inputs.verbose }}
+    USER: ${{inputs.user}}
     TOKEN: ${{ inputs.token }}
