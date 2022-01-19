@@ -11,6 +11,8 @@ if [ $result -ne 0 ] ; then
   cd /github/workspace/app/
   ls
   echo "INFO : create a new branch with corrections." ;
+  git config --global user.email "toto@opt.nc"
+  git config --global user.name "Toto"
   git checkout -b yamlfixer_patch
   git add --all
   git commit -m 'yamlfixer patch proposition'
