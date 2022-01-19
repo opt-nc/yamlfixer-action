@@ -10,14 +10,14 @@ if [ $result -ne 0 ] ; then
   branch_name=$(git branch --show-current)
   repository_name=$(basename $(git remote get-url origin) .git)
   echo $repository_name
-  git config --global user.email "toto@opt.nc"
-  git config --global user.name "Toto"
+#  git config --global user.email "opt@opt.nc"
+  git config --global user.name $USER
   git checkout -b yamlfixer_patch
   git add --all
   git commit -m 'yamlfixer patch proposition'
   git push origin yamlfixer_patch
   echo "INFO : create a pull request." ;
-  curl  -v -u $USER:$TOKEN -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"yamlfixer_patch","base":"'$branch_name'"}' --trace-ascii -
+  curl  -v -u $USER:$TOKEN -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"yamlfixer_patch","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}' --trace-ascii -
 else
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
 fi ;
