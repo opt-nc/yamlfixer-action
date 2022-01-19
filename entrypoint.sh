@@ -7,7 +7,9 @@ if [ $result -ne 0 ] ; then
   echo "WARN: all input files didn't pass successfully yamllint strict mode." ;
   branch_name=$(git branch --show-current)
   repository_name=$(basename `git rev-parse --show-toplevel`)
+  pwd
   cd /github/workspace/app/
+  ls
   echo "INFO : create a new branch with corrections." ;
   git checkout -b yamlfixer_patch
   git add --all
