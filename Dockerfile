@@ -12,6 +12,7 @@ RUN chmod +x yamlfixer
 RUN pip install -r requirements.txt
 RUN apk update
 RUN apk add git
+RUN apk add curl
 
 # Répertoire contenant le source de l'application
 VOLUME ./../app /app
