@@ -2,12 +2,12 @@
 name: 'Yaml Fixer'
 description: 'Lint and fix Yaml files'
 branding :
-  icon : 'zap'
-  color : 'red'
+  icon : 'file-text'
+  color : 'purple'
 
 inputs:
   yaml_file:
-    description: "Fichier yaml templaté contenant les extra_vars"
+    description: "Fichier(s) yaml à tester"
     required: true
   debug:
     description: "Activation du mode debug"
@@ -18,10 +18,10 @@ inputs:
     required: true
     default: false
   user:
-    description: "user pour creation pr"
+    description: "Compte à utiliser pour la création des pull requests"
     required: false
   token:
-    description: token pour création de la pull request
+    description: "Token pour création des pull requests"
     required: false
 
 runs:

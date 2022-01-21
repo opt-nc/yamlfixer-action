@@ -1,6 +1,12 @@
 #!/bin/sh -l
 
-yamlfixer --verbose /github/workspace/app/$YAML_FILE
+if [ $VERBOSE ] ; then
+  options='--verbose '
+
+if [ $DEBUG ] ; then
+  options=$options '--debug'
+
+yamlfixer $options /github/workspace/app/$YAML_FILE
 
 result=$?
 if [ $result -ne 0 ] ; then
