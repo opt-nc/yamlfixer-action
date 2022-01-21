@@ -1,6 +1,6 @@
 #!/bin/sh -l
 
-/yamlfixer --verbose /github/workspace/app/$YAML_FILE
+yamlfixer --verbose /github/workspace/app/$YAML_FILE
 
 result=$?
 if [ $result -ne 0 ] ; then
@@ -10,7 +10,6 @@ if [ $result -ne 0 ] ; then
   branch_name=$(git branch --show-current)
   repository_name=$(basename $(git remote get-url origin) .git)
   current_timestamp=$(($(date +%s)))
-  echo $repository_name
   git config --global user.email $USER"@opt.nc"
   git config --global user.name $USER
   git checkout -b yamlfixer/patch/$branch_name/$current_timestamp
