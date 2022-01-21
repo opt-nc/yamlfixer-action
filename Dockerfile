@@ -4,7 +4,7 @@ FROM optnc/yamlfixer:latest
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
 
-RUN chmod +x entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 RUN apk update
 RUN apk add git
