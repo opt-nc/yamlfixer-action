@@ -2,9 +2,11 @@
 
 if [ $VERBOSE ] ; then
   options='--verbose '
+fi;
 
 if [ $DEBUG ] ; then
   options=$options '--debug'
+fi;
 
 yamlfixer $options /github/workspace/app/$YAML_FILE
 
