@@ -9,14 +9,9 @@ inputs:
   yaml_file:
     description: "Fichier(s) yaml à tester"
     required: true
-  debug:
-    description: "Activation du mode debug"
-    required: true
-    default: false
-  verbose:
-    description: "Activation du mode verbose"
-    required: true
-    default: false
+  options:
+    description: "Options d'execution de yamlfixer"
+    required: false
   user:
     description: "Compte à utiliser pour la création des pull requests"
     required: false
@@ -29,7 +24,6 @@ runs:
   image: 'Dockerfile'
   env:
     YAML_FILE: ${{ inputs.yaml_file }}
-    DEBUG: ${{ inputs.debug }}
-    VERBOSE: ${{ inputs.verbose }}
+    OPTIONS: ${{ inputs.options }}
     USER: ${{inputs.user}}
     TOKEN: ${{ inputs.token }}

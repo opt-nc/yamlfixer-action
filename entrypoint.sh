@@ -1,16 +1,8 @@
 #!/bin/sh -l
 
-if [ $VERBOSE ] ; then
-  echo "INFO: verbose mode detected."
-  options="--verbose "
-fi;
 
-if [ $DEBUG ] ; then
-  echo "INFO: debug mode detected."
-  options+="--debug"
-fi;
 
-yamlfixer $options /github/workspace/app/$YAML_FILE
+yamlfixer $OPTIONS /github/workspace/app/$YAML_FILE
 
 result=$?
 if [ $result -ne 0 ] ; then
