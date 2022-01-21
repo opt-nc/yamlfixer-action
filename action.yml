@@ -2,26 +2,28 @@
 name: 'Yaml Fixer'
 description: 'Lint and fix Yaml files'
 branding :
-  icon : 'zap'
-  color : 'red'
+  icon : 'file-text'
+  color : 'purple'
 
 inputs:
   yaml_file:
-    description: "Fichier yaml templaté contenant les extra_vars"
+    description: "Fichier(s) yaml à tester"
     required: true
-  debug:
-    description: "Activation du mode debug"
-    required: true
-    default: false
-  verbose:
-    description: "Activation du mode verbose"
-    required: true
-    default: false
+  options:
+    description: "Options d'execution de yamlfixer"
+    required: false
+  user:
+    description: "Compte à utiliser pour la création des pull requests"
+    required: false
+  token:
+    description: "Token pour création des pull requests"
+    required: false
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
     YAML_FILE: ${{ inputs.yaml_file }}
-    DEBUG: ${{ inputs.debug }}
-    VERBOSE: ${{ inputs.VERBOSE }}
+    OPTIONS: ${{ inputs.options }}
+    USER: ${{inputs.user}}
+    TOKEN: ${{ inputs.token }}
