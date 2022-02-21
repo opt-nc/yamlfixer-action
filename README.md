@@ -1,6 +1,6 @@
 # yamlfixer-action
 
-This github-action is based on the tool [Yamlfixer](https://github.com/opt-nc/yamlfixer) developed by @tamere-allo-peter.
+This github-action is based on the tool [Yamlfixer](https://github.com/opt-nc/yamlfixer) developed by [`@tamere-allo-peter`](https://github.com/tamere-allo-peter).
 It automatically fixes some errors and warnings reported by yamllint and create a pull request with fixes.
 
 ## Usage
