@@ -2,20 +2,20 @@
 
 
 
-yamlfixer $OPTIONS /github/workspace/app/$YAML_FILE
+yamlfixer $OPTIONS /github/workspace/$YAML_FILE
 
 result=$?
 if [ $result -ne 0 ] ; then
   echo "WARN: all input files didn't pass successfully yamllint strict mode." ;
   echo "INFO : create a new branch with corrections." ;
-  cd /github/workspace/app/
+  cd /github/workspace
   branch_name=$(git branch --show-current)
   repository_name=$(basename $(git remote get-url origin) .git)
   current_timestamp=$(($(date +%s)))
   git config --global user.email $USER"@opt.nc"
   git config --global user.name $USER
   git checkout -b yamlfixer/patch/$branch_name/$current_timestamp
-  git add --all
+  git add $YAML_FILE
   git commit -m 'Yamlfixer : fix yaml files '$YAML_FILE
   git push origin yamlfixer/patch/$branch_name/$current_timestamp
   echo "INFO : create a pull request." ;
