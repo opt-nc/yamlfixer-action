@@ -13,10 +13,8 @@ if [ $result -ne 0 ] ; then
   echo "DEBUG : git remote -v"
   git remote -v
   repo_url=$(git remote get-url origin)
-  echo "DEBUG : repo_url=" repo_url;
-  repository_name=${repo_url##*:}
-   echo "DEBUG : repository_name=" $repository_name;
-  repository_name=${repository_name%%.*}
+  echo "DEBUG : repo_url=" $repo_url;
+  repository_name=${repo_url##*.com/}
    echo "DEBUG : repository_name=" $repository_name;
   current_timestamp=$(($(date +%s)))
 
