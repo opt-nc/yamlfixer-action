@@ -19,7 +19,7 @@ if [ $result -ne 0 ] ; then
   git commit -m 'Yamlfixer : fix yaml files '$YAML_FILE
   git push origin yamlfixer/patch/$branch_name/$current_timestamp
   echo "INFO : create a pull request." ;
-  curl  -u $USER:$TOKEN -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
+  curl  -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer {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}" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
 else
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
 fi ;
