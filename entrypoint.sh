@@ -10,6 +10,8 @@ if [ $result -ne 0 ] ; then
   echo "INFO : create a new branch with corrections." ;
   cd /github/workspace
   branch_name=$(git branch --show-current)
+  echo "DEBUG : git remote -v"
+  git remote -v
   repo_url=$(git remote get-url origin)
   echo "DEBUG : repo_url=" repo_url;
   repository_name=${repo_url##*:}
