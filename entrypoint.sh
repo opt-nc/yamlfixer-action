@@ -1,7 +1,5 @@
 #!/bin/sh -l
 
-
-
 yamlfixer $OPTIONS /github/workspace/$YAML_FILE
 
 result=$?
@@ -10,15 +8,9 @@ if [ $result -ne 0 ] ; then
   echo "INFO : create a new branch with corrections." ;
   cd /github/workspace
   branch_name=$(git branch --show-current)
-  echo "DEBUG : git remote -v"
-  git remote -v
   repo_url=$(git remote get-url origin)
-  echo "DEBUG : repo_url=" $repo_url;
   repository_name=${repo_url##*.com/}
-   echo "DEBUG : repository_name=" $repository_name;
   current_timestamp=$(($(date +%s)))
-
-
 
   git config --global user.email noreply@github.com
   git config --global user.name $USER
@@ -29,9 +21,10 @@ if [ $result -ne 0 ] ; then
 
 
   echo "INFO : create a pull request." ;
-  curl  -v -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer "$TOKEN https://api.github.com/repos/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
+  curl  -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer "$TOKEN https://api.github.com/repos/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
+  exit $result
 else
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
 fi ;
 
-exit $result
+
