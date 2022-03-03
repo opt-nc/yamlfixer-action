@@ -15,7 +15,7 @@ if [ $result -ne 0 ] ; then
   repository_name=${repository_name%%.*}
   current_timestamp=$(($(date +%s)))
 
-  git config --global user.email $USER"@opt.nc"
+  git config --global user.email noreply@github.com
   git config --global user.name $USER
   git checkout -b yamlfixer/patch/$branch_name/$current_timestamp
   git add $YAML_FILE
@@ -23,7 +23,7 @@ if [ $result -ne 0 ] ; then
   git push origin yamlfixer/patch/$branch_name/$current_timestamp
 
   echo "INFO : create a pull request." ;
-  curl  -H "Accept: application/vnd.github.v3+json" -u $USER:$TOKEN https://api.github.com/repos/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
+  curl  -v -H "Accept: application/vnd.github.v3+json" -u $USER:$TOKEN https://api.github.com/repos/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
 else
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
 fi ;
