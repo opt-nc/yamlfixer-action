@@ -11,11 +11,14 @@ if [ $result -ne 0 ] ; then
   cd /github/workspace
   branch_name=$(git branch --show-current)
   repo_url=$(git remote get-url origin)
+  echo "DEBUG : repo_url=" repo_url;
   repository_name=${repo_url##*:}
+   echo "DEBUG : repository_name=" $repository_name;
   repository_name=${repository_name%%.*}
+   echo "DEBUG : repository_name=" $repository_name;
   current_timestamp=$(($(date +%s)))
 
-  echo "DEBUG :" $repository_name;
+
 
   git config --global user.email noreply@github.com
   git config --global user.name $USER
