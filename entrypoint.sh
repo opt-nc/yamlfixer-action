@@ -15,7 +15,7 @@ if [ $result -ne 0 ] ; then
   repository_name=${repository_name%%.*}
   current_timestamp=$(($(date +%s)))
 
-  echo $repository_name
+  echo "DEBUG :" $repository_name;
 
   git config --global user.email noreply@github.com
   git config --global user.name $USER
