@@ -11,7 +11,8 @@ if [ $result -ne 0 ] ; then
   cd /github/workspace
   branch_name=$(git branch --show-current)
   repo_url=$(git remote get-url origin)
-  repository_name=$(repo_url##*:)
+  repository_name=${repo_url##*:}
+  repository_name=${repository_name%%.*}
   current_timestamp=$(($(date +%s)))
 
   git config --global user.email $USER"@opt.nc"
