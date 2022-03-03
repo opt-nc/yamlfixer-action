@@ -10,16 +10,19 @@ if [ $result -ne 0 ] ; then
   echo "INFO : create a new branch with corrections." ;
   cd /github/workspace
   branch_name=$(git branch --show-current)
-  repository_name=$(basename $(git remote get-url origin) .git)
+  repo_url=$(git remote get-url origin)
+  repository_name=$(repo_url##*:)
   current_timestamp=$(($(date +%s)))
+
   git config --global user.email $USER"@opt.nc"
   git config --global user.name $USER
   git checkout -b yamlfixer/patch/$branch_name/$current_timestamp
   git add $YAML_FILE
   git commit -m 'Yamlfixer : fix yaml files '$YAML_FILE
   git push origin yamlfixer/patch/$branch_name/$current_timestamp
+
   echo "INFO : create a pull request." ;
-  curl  -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer {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}" https://api.github.com/repos/opt-nc/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
+  curl  -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer {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}" https://api.github.com/repos/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
 else
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
 fi ;
