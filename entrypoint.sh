@@ -15,12 +15,15 @@ if [ $result -ne 0 ] ; then
   repository_name=${repository_name%%.*}
   current_timestamp=$(($(date +%s)))
 
+  echo $repository_name
+
   git config --global user.email noreply@github.com
   git config --global user.name $USER
   git checkout -b yamlfixer/patch/$branch_name/$current_timestamp
   git add $YAML_FILE
   git commit -m 'Yamlfixer : fix yaml files '$YAML_FILE
   git push origin yamlfixer/patch/$branch_name/$current_timestamp
+
 
   echo "INFO : create a pull request." ;
   curl  -v -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer "$TOKEN https://api.github.com/repos/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
