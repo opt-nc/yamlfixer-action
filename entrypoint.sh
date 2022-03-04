@@ -22,9 +22,10 @@ if [ $result -ne 0 ] ; then
 
   echo "INFO : create a pull request." ;
   curl  -H "Accept: application/vnd.github.v3+json" -H "Authorization: token "$TOKEN https://api.github.com/repos/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
-  exit $result
 else
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
 fi ;
+
+exit $?
 
 
