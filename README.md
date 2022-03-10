@@ -1,15 +1,19 @@
-# yamlfixer-action
+# ❔ About
 
-This github-action is based on the tool [Yamlfixer](https://github.com/opt-nc/yamlfixer) developed by [`@tamere-allo-peter`](https://github.com/tamere-allo-peter).
-It automatically fixes some errors and warnings reported by yamllint and create a pull request with fixes.
+This github-action is based on the tool [`Yamlfixer`](https://github.com/opt-nc/yamlfixer) : 
 
-## Usage
+- Developed by [`@tamere-allo-peter`](https://github.com/tamere-allo-peter)
+- Integrated as a Github Action by [`@mbarre`](https://github.com/mbarre)
+
+It **automatically fixes** some errors and warnings reported by `yamllint` and creates **a pull request that embeds the fixes**.
+
+## 🧰 Usage
 
 See [action.yml](action.yml)
 
 You need a Github account that is allowed to create pull request on the inspected repository.
 
-Here an example, that allow to check yaml files on each push with verbose mode :
+Find below an example that allows to check `yaml` files **on each push** with verbose mode :
 
 ```yaml
 name: Lint yaml files
@@ -31,9 +35,19 @@ jobs:
             token: ${{secrets.my_user_password}}
 ```
 
-The github-action creates a new branch named **yamlfixer/patch/$branch_name/$current_timestamp** and the pull request to be merged into the working branch.
+The github-action creates :
 
-## Licensing information
+1. A new branch named `yamlfixer/patch/$branch_name/$current_timestamp`
+2. The pull request to be merged into the working branch
+
+# 🔖 Resources
+
+Here are some useful resources : 
+
+- 📖 [Why and how this Gh Action has been developed](https://dev.to/adriens/let-ci-check-fix-your-yamls-kfa) : 2' read
+- 🎦 [Video demo of a whole usecase](https://youtu.be/GuloRWeTavY) : 7' read
+
+## 📖 Licensing information
 
 Copyright (C) 2021 OPT-NC
 
