@@ -30,7 +30,7 @@ jobs:
         uses: opt-nc/yamlfixer-action
         with:
             yaml_file: .github/*.yml
-            options: --verbose
+            options: --summary
             user: ${{secrets.my_user}}
             token: ${{secrets.my_user_password}}
 ```
