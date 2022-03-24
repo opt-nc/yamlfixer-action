@@ -1,9 +1,9 @@
 #!/bin/sh -l
 
-yamlfixer $OPTIONS /github/workspace/$YAML_FILE
+CHANGES=$(yamlfixer --nochange --jsonsummary /github/workspace/$YAML_FILE 2>&1 | jq '[.fixed,.modified] | add')
 
-result=$?
-if [ $result -ne 0 ] ; then
+if [ $CHANGES -gt 0 ] ; then
+  yamlfixer $OPTIONS /github/workspace/$YAML_FILE
   echo "WARN: all input files didn't pass successfully yamllint strict mode." ;
   echo "INFO : create a new branch with corrections." ;
   cd /github/workspace
