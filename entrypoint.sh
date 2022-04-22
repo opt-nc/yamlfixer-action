@@ -1,31 +1,52 @@
 #!/bin/sh -l
 
-CHANGES=$(yamlfixer --nochange --jsonsummary /github/workspace/$YAML_FILE 2>&1 | jq '[.fixed,.modified] | add')
+cd /github/workspace/
+yamlfixer $OPTIONS --nochange --recurse -1 --diffto /tmp/changes.patch . $YAML_FILE
 
-if [ $CHANGES -gt 0 ] ; then
-  yamlfixer $OPTIONS /github/workspace/$YAML_FILE
+if [[ -s /tmp/changes.patch ]] ; then
   echo "WARN: all input files didn't pass successfully yamllint strict mode." ;
-  echo "INFO : create a new branch with corrections." ;
-  cd /github/workspace
-  branch_name=$(git branch --show-current)
+
+  git config --global --add safe.directory /github/workspace
+  base_branch_name=$(git branch --show-current)
+  patch_branch_name=yamlfixer/patch/$base_branch_name
   repo_url=$(git remote get-url origin)
   repository_name=${repo_url##*.com/}
-  current_timestamp=$(($(date +%s)))
 
   git config --global user.email noreply@github.com
   git config --global user.name $USER
-  git checkout -b yamlfixer/patch/$branch_name/$current_timestamp
-  git add $YAML_FILE
-  git commit -m 'Yamlfixer : fix yaml files '$YAML_FILE
-  git push origin yamlfixer/patch/$branch_name/$current_timestamp
+  git fetch
+
+  # If current branch is the patch branch, just push
+  if [[ "$base_branch_name" == *"yamlfixer/patch"* ]]; then
+    echo "INFO : PR already exists, and currently working on the branch. Rebase with remote branch and push"
+    git pull --rebase
+    patch -p0 < /tmp/changes.patch
+    git commit -a -m 'Yamlfixer : fix yaml files'
+    git push origin $base_branch_name
+  else
+    # Check if a remote patch branch exists for the current branch
+    remote_branch_exists=$(git ls-remote --heads origin $patch_branch_name)
+    if [[ -n "$remote_branch_exists" ]]; then
+      echo "INFO : branch already exists, just merge and push"
+      git checkout $patch_branch_name
+      git pull --rebase
+    else
+      echo "INFO : branch not found, create a new branch and push fixes." ;
+      git checkout -b $patch_branch_name
+    fi
+
+    patch -p0 < /tmp/changes.patch
+    git commit -a -m 'Yamlfixer : fix yaml files'
+    git push origin $patch_branch_name
 
 
-  echo "INFO : create a pull request." ;
-  curl  -H "Accept: application/vnd.github.v3+json" -H "Authorization: token "$TOKEN https://api.github.com/repos/$repository_name/pulls -d '{"head":"'yamlfixer/patch/$branch_name/$current_timestamp'","base":"'$branch_name'", "title":"Fix yaml files '$YAML_FILE'"}'
-else
+    if [[ "$remote_branch_exists" ]]; then
+      echo "INFO : create a pull request." ;
+      curl  -H "Accept: application/vnd.github.v3+json" -H "Authorization: token "$TOKEN https://api.github.com/repos/$repository_name/pulls -d '{"head":"'$patch_branch_name'","base":"'$base_branch_name'", "title":"Fix yaml files"}'
+    fi
+  fi
+
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
 fi ;
 
 exit $?
-
-
