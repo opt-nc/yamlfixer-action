@@ -25,11 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout my app
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Lint yaml files
         uses: opt-nc/yamlfixer-action
         with:
-            yaml_file: .github/*.yml
             options: --summary
             user: ${{secrets.my_user}}
             token: ${{secrets.my_user_password}}
@@ -37,7 +36,7 @@ jobs:
 
 The github-action creates :
 
-1. A new branch named `yamlfixer/patch/$branch_name/$current_timestamp`
+1. A new branch named `yamlfixer/patch/$branch_name`
 2. The pull request to be merged into the working branch
 
 # 🔖 Resources
