@@ -7,16 +7,16 @@ branding :
 
 inputs:
   yaml_file:
-    description: "Fichier(s) yaml à tester"
-    required: true
+    description: "Yaml files to be tested (file without .yml or .yaml extension"
+    required: false
   options:
-    description: "Options d'execution de yamlfixer"
+    description: "Yamlfixer execution options"
     required: false
   user:
-    description: "Compte à utiliser pour la création des pull requests"
+    description: "Github user to push PR"
     required: false
   token:
-    description: "Token pour création des pull requests"
+    description: "User Token to push PR"
     required: false
 
 runs:
