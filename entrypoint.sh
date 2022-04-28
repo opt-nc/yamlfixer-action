@@ -40,14 +40,13 @@ if [[ -s /tmp/changes.patch ]] ; then
     git push origin $patch_branch_name
 
 
-    if [[ "$remote_branch_exists" ]]; then
+    if [[ -z "$remote_branch_exists" ]]; then
       echo "INFO : create a pull request." ;
       curl  -H "Accept: application/vnd.github.v3+json" -H "Authorization: token "$TOKEN https://api.github.com/repos/$repository_name/pulls -d '{"head":"'$patch_branch_name'","base":"'$base_branch_name'", "title":"Fix yaml files"}'
     fi
   fi
-
-  echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
   exit 1
+else
+  echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
+  exit 0
 fi ;
-
-exit $?
