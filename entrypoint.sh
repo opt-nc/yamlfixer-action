@@ -47,6 +47,7 @@ if [[ -s /tmp/changes.patch ]] ; then
   fi
 
   echo "INFO : all input files either are skipped or successfully pass yamllint strict mode." ;
+  exit 1
 fi ;
 
 exit $?
