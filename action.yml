@@ -7,7 +7,7 @@ branding :
 
 inputs:
   yaml_file:
-    description: "Yaml files to be tested (file without .yml or .yaml extension"
+    description: "Yaml files to be tested. By default, all files except the ones in .github/workflows/ are linted."
     required: false
   options:
     description: "Yamlfixer execution options"

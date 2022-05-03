@@ -2,6 +2,7 @@
 
 cd /github/workspace/
 yamlfixer $OPTIONS --nochange  --diffto /tmp/changes.patch $(git ls-files '*.yaml' '*.yml' '.yamllint' | grep -v ^.github/workflows/) $YAML_FILE
+echo "yamlfixer $OPTIONS --nochange  --diffto /tmp/changes.patch $(git ls-files '*.yaml' '*.yml' '.yamllint' | grep -v ^.github/workflows/) $YAML_FILE"
 
 if [[ -s /tmp/changes.patch ]] ; then
   echo "WARN: all input files didn't pass successfully yamllint strict mode." ;
