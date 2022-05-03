@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM optnc/yamlfixer:0.9.1
+FROM optnc/yamlfixer:0.9.3
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
