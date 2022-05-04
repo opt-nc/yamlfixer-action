@@ -1,7 +1,8 @@
 #!/bin/sh -l
 
 cd /github/workspace/
-git ls-files '*.yaml' '*.yml' '.yamllint'
+res=$(git ls-files '*.yaml' '*.yml' '.yamllint')
+echo $res
 yamlfixer $OPTIONS --nochange  --diffto /tmp/changes.patch $(git ls-files '*.yaml' '*.yml' '.yamllint' | grep -v ^.github/workflows/) $YAML_FILE
 echo "yamlfixer $OPTIONS --nochange  --diffto /tmp/changes.patch $(git ls-files '*.yaml' '*.yml' '.yamllint' | grep -v ^.github/workflows/) $YAML_FILE"
 
