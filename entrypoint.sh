@@ -1,10 +1,8 @@
 #!/bin/sh -l
 
 cd /github/workspace/
-res=$(git ls-files '*.yaml' '*.yml' '.yamllint')
-echo git-command result : $res
-yamlfixer $OPTIONS --nochange  --diffto /tmp/changes.patch $(git ls-files '*.yaml' '*.yml' '.yamllint' | grep -v ^.github/workflows/) $YAML_FILE
-echo "yamlfixer $OPTIONS --nochange  --diffto /tmp/changes.patch $(git ls-files '*.yaml' '*.yml' '.yamllint' | grep -v ^.github/workflows/) $YAML_FILE"
+yamlfixer $OPTIONS --nochange  --diffto /tmp/changes.patch $(find . -type f -name "*.yml" -o -name "*.yaml" -o -name ".yamllint" | grep -v ^./.github/workflows/) $YAML_FILE
+echo "yamlfixer $OPTIONS --nochange  --diffto /tmp/changes.patch $(find . -type f -name "*.yml" -o -name "*.yaml" -o -name ".yamllint" | grep -v ^./.github/workflows/) $YAML_FILE"
 
 if [[ -s /tmp/changes.patch ]] ; then
   echo "WARN: all input files didn't pass successfully yamllint strict mode." ;
