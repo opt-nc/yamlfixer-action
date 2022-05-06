@@ -17,9 +17,11 @@ if [[ -s /tmp/changes.patch ]] ; then
   git config --global user.name $USER
   git fetch
 
+  echo "INFO : linting $base_branch_name."
+
   # If current branch is the patch branch, just push
   if [[ "$base_branch_name" == *"yamlfixer/patch"* ]]; then
-    echo "INFO : PR already exists, and currently working on the branch. Rebase with remote branch and push"
+    echo "INFO : currently working on the patch branch $base_branch_name. Rebase with remote branch and push"
     git pull --rebase
     patch -p0 < /tmp/changes.patch
     git commit -a -m 'Yamlfixer : fix yaml files'
@@ -28,11 +30,11 @@ if [[ -s /tmp/changes.patch ]] ; then
     # Check if a remote patch branch exists for the current branch
     remote_branch_exists=$(git ls-remote --heads origin $patch_branch_name)
     if [[ -n "$remote_branch_exists" ]]; then
-      echo "INFO : branch already exists, just merge and push"
+      echo "INFO : patch branch $patch_branch_name already exists, just merge and push"
       git checkout $patch_branch_name
       git pull --rebase
     else
-      echo "INFO : branch not found, create a new branch and push fixes." ;
+      echo "INFO : patch branch not found, create a new patch branch $patch_branch_name and push fixes." ;
       git checkout -b $patch_branch_name
     fi
 
